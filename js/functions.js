@@ -1,22 +1,40 @@
-function isMeetingWithinWorkday(startWork, endWork, startMeeting, duration) {
-  function toMinutes(time) {
-    const [hours, minutes] = time.split(':').map(Number);
-    return hours * 60 + minutes;
+const createPhotos = () => {
+  const photos = [];
+
+  for (let i = 1; i <= 10; i++) {
+    photos.push({
+      id: i,
+      url: `photos/${i}.jpg`,
+      description: `Фото №${i}`,
+      likes: Math.floor(Math.random() * 200) + 15,
+      comments: Math.floor(Math.random() * 100)
+    });
   }
 
-  const startWorkMinutes = toMinutes(startWork);
-  const endWorkMinutes = toMinutes(endWork);
-  const startMeetingMinutes = toMinutes(startMeeting);
-  const endMeetingMinutes = startMeetingMinutes + duration;
+  return photos;
+};
 
-  return (
-    startMeetingMinutes >= startWorkMinutes &&
-    endMeetingMinutes <= endWorkMinutes
-  );
-}
+const picturesContainer = document.querySelector('.pictures');
+const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
 
-console.log(isMeetingWithinWorkday('08:00', '17:30', '14:00', 90));
-console.log(isMeetingWithinWorkday('8:0', '10:0', '8:0', 120));
-console.log(isMeetingWithinWorkday('08:00', '14:30', '14:00', 90));
-console.log(isMeetingWithinWorkday('14:00', '17:30', '08:0', 90));
-console.log(isMeetingWithinWorkday('8:00', '17:30', '08:00', 900));
+const renderPictures = (photoList) => {
+  const fragment = document.createDocumentFragment();
+
+  photoList.forEach(({ url, description, likes, comments }) => {
+    const pictureElement = pictureTemplate.cloneNode(true);
+
+    const img = pictureElement.querySelector('.picture__img');
+    img.src = url;
+    img.alt = description;
+
+    pictureElement.querySelector('.picture__likes').textContent = likes;
+    pictureElement.querySelector('.picture__comments').textContent = comments;
+
+    fragment.append(pictureElement);
+  });
+
+  picturesContainer.append(fragment);
+};
+
+const photos = createPhotos();
+renderPictures(photos);
