@@ -1,32 +1,57 @@
-const isEscKey = (evt) => evt.key === 'Escape';
-
-
-const numberDeclination = (num, nominative, genitiveSingular, genitivePlural) => {
-  const hundredths = num % 100;
-  if (hundredths <= 4 || hundredths > 20) {
-    const tenths = num % 10;
-    if (tenths === 1) {
-      return nominative;
-    }
-    if (tenths >= 2 && tenths <= 4) {
-      return genitiveSingular;
-    }
-  }
-  return genitivePlural;
+// Генерирует случайное число (целое) в заданном диапазоне
+const getRandomInteger = (minValue, maxValue) => {
+  const min = Math.ceil(Math.min(minValue, maxValue));
+  const max = Math.floor(Math.max(minValue, maxValue));
+  return Math.floor(Math.random() * (max - min + 1) + min);
 };
 
-const onFail = () => {
-  const messageAlert = document.createElement('div');
-  messageAlert.style.position = 'absolute';
-  messageAlert.style.left = 0;
-  messageAlert.style.top = 0;
-  messageAlert.style.right = 0;
-  messageAlert.style.textAlign = 'center';
-  messageAlert.style.fontSize = '30px';
-  messageAlert.style.backgroundColor = 'red';
-  messageAlert.style.padding = '10px 5px';
-  messageAlert.textContent = 'Ошибка загрузки данных';
-  document.body.append(messageAlert);
+const getRandomArrayElement = (elements) => elements[getRandomInteger(0, elements.length - 1)];
+
+// Проверяет, является ли клавиша Esc
+const isEscapeKey = (evt) => evt.key === 'Escape';
+
+const showAlert = (message) => {
+  const alertContainerElement = document.createElement('div');
+  alertContainerElement.style.zIndex = '100';
+  alertContainerElement.style.position = 'fixed';
+  alertContainerElement.style.left = '0';
+  alertContainerElement.style.top = '0';
+  alertContainerElement.style.right = '0';
+  alertContainerElement.style.padding = '10px 3px';
+  alertContainerElement.style.fontSize = '30px';
+  alertContainerElement.style.textAlign = 'center';
+  alertContainerElement.style.backgroundColor = 'red';
+  alertContainerElement.textContent = message;
+
+  document.body.append(alertContainerElement);
+
+  setTimeout(() => {
+    alertContainerElement.remove();
+  }, 5000);
 };
 
-export { isEscKey, numberDeclination, onFail };
+// Функция для устранения дребезга
+const debounce = (callback, timeoutDelay = 500) => {
+  let timeoutId;
+
+  return (...rest) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+  };
+};
+
+// Функция для пропуска кадров
+const throttle = (callback, delayBetweenFrames) => {
+  let lastTime = 0;
+
+  return (...rest) => {
+    const now = new Date();
+
+    if (now - lastTime >= delayBetweenFrames) {
+      callback.apply(this, rest);
+      lastTime = now;
+    }
+  };
+};
+
+export { getRandomInteger, getRandomArrayElement, isEscapeKey, showAlert, debounce, throttle };

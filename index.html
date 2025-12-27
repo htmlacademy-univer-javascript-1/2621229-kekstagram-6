@@ -6,12 +6,14 @@
   <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/style.css">
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="vendor/nouislider.css">
   <title>Кекстаграм</title>
 </head>
 
 <body>
   <main>
 
+    <!-- Фильтрация изображений от других пользователей -->
     <section class="img-filters  img-filters--inactive  container">
       <h2 class="img-filters__title  visually-hidden">Фильтр фотографий</h2>
       <form class="img-filters__form" action="index.html" method="get" autocomplete="off">
@@ -29,12 +31,16 @@
       <section class="img-upload">
         <div class="img-upload__wrapper">
           <h2 class="img-upload__title  visually-hidden">Загрузка фотографии</h2>
-          <form class="img-upload__form" id="upload-select-image" method="post" enctype="multipart/form-data" autocomplete="off">
-
+          <form class="img-upload__form"
+                id="upload-select-image"
+                action="https://29.javascript.htmlacademy.pro/kekstagram"
+                method="POST"
+                enctype="multipart/form-data"
+                autocomplete="off">
             <!-- Изначальное состояние поля для загрузки изображения -->
             <fieldset class="img-upload__start">
               <input type="file" id="upload-file" class="img-upload__input  visually-hidden" name="filename" required>
-              <label for="upload-file" class="img-upload__label  img-upload__control">Загрузить</label>
+              <label for="upload-file" class="img-upload__label  img-upload__control">Загрустить</label>
             </fieldset>
 
             <!-- Форма редактирования изображения -->
@@ -230,42 +236,8 @@
   <template id="messages">
     <div class="img-upload__message  img-upload__message--loading">Загружаем...</div>
   </template>
-  <!DOCTYPE html>
-<html lang="ru">
-<head>
-  <meta charset="UTF-8">
-  <title>Мой проект</title>
-  <!-- Подключение файла functions.js -->
-  <script src="js/functions.js"></script>
-</head>
-<body>
-  <h1>Пример подключения JS</h1> 3333232332323
+  <script src="vendor/nouislider.js"></script>
+  <script src="vendor/pristine.js"></script>
+  <script type="module" src="js/main.js"></script>
 </body>
 </html>
-
-{
-  id: 135,
-  avatar: 'img/avatar-6.svg',
-  message: 'В целом всё неплохо. Но не всё.',
-  name: 'Артём',
-}
-  <script src="functions.js"></script>
-  <section class="pictures">
-    <h2 class="visually-hidden">Фотографии других пользователей</h2>
-  </section>
-
-  <template id="picture">
-    <a href="#" class="picture">
-      <img class="picture__img" src="" alt="">
-      <p class="picture__info">
-        <span class="picture__comments"></span>
-        <span class="picture__likes"></span>
-      </p>
-    </a>
-  </template>
-
-  <script type="module" src="js/main.js"></script> ??222222
-
-</body>
-</html> #213993719739173919213972139123
-
